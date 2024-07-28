@@ -27,6 +27,7 @@ and add the following under it
 include uploads-proxy.conf;
 ```
 
+change the variables in to match the remote site url.  This should point to the uploads folder of the remote site and allows you to not have to download all the of the files.  If you are not using multisite on the remote, you can delete `[MAYBEMULTISITEPATH]`
 restart the site in LocalByFlywheel
 
 3. download the db from a multisite on pantheon
