@@ -1,0 +1,55 @@
+# Import a pantheon site into local by flywheen
+
+1. Make a site in flywheel
+Start a new site with nginx using the php version you are using on the site (7 or 8)
+pull the plugins and themes into the project wp-content folder
+
+2. Optionally Redirect to production images, if you dont want to do this, skip to 3
+add uploads-proxy.conf to the site/conf/nginx folder changing the url to represent the remote site url and site id
+
+in the project folder/conf/nginx/site.conf.hbs find 
+```
+#
+# WordPress Rules
+#
+{{#unless site.multiSite}}
+include includes/wordpress-single.conf;
+{{else}}
+include includes/wordpress-multi.conf;
+{{/unless}}
+```
+
+and add the following under it
+```
+#
+# Proxy requests to the upload directory to the production site
+#
+include uploads-proxy.conf;
+```
+
+restart the site in LocalByFlywheel
+
+3. download the db from a multisite on pantheon
+`terminus wp [SITE].[ENV] -- db export - --tables=$(terminus wp [SITE].[ENV] -- db tables '[PREFIX]_[SITEID]_*' --url=[SITEURL] --format=csv) > database.sql`
+
+4. import the db
+`wp db import database.sql`
+
+5. import the stored proceedure
+`wp db query < change-table-prefix.sql`
+
+6. delete unused tables
+in adminer select sql command `DROP TABLE IF EXISTS wp_commentmeta,wp_comments,wp_links,wp_options,wp_postmeta,wp_posts,wp_term_relationships,wp_term_taxonomy,wp_termmeta,wp_terms`
+
+7. change the table prefix
+in adminer select sql command `CALL change_wp_tables_prefix("local","[PREFIX]_[SITEID]_","wp_")`
+
+8. Search replce for the old db table names
+`wp search-replace wpsites_[SITEID]_ wp_ --report-changed-only`
+
+9. Change the urls
+`wp search-replace [SITEURL] [NEWLOCALSITEURL] --report-changed-only`
+
+10. change the siteurl and home 
+`wp option update siteurl [SCHEME][[NEWLOCALSITEURL] && wp option update home [SCHEME][[NEWLOCALSITEURL]`
+
