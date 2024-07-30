@@ -1,0 +1,5 @@
+vendor/
+node_modules/
+wordpress-and-nginx-for-docker/
+wordpress-docker-image/
+localhub/
