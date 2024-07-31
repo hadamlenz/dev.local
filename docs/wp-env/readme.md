@@ -1,9 +1,12 @@
 ## @wordpress\env
 
-can be defined with a file named .wp-env.json in the root, this is an example of the one we use.  For this to work you will need your theme in the themes folder, and have some plugins in the plugins folder.  Those are what I've mapped in the plugins attribute below
+Efectvly a docker compose.  More [here](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/)  
 
-The env attribute sets custom ports, this allows me to run more that one env at a time
+I highly suggest you run `npm -g i @wordpress/env`  so that you dont have to run npm run on every command.  
 
+It can be defined with a file named .wp-env.json in the root, this is an example of the one we use.  For this to work you will need your theme in the themes folder, and have some plugins in the plugins folder.  Those are what I've mapped in the plugins attribute below
+
+The env attribute sets custom ports, this allows me to run more that one wp-env at a time
 
 ```json
 {
@@ -24,3 +27,28 @@ The env attribute sets custom ports, this allows me to run more that one env at 
 		}
 	}
 }
+
+
+Here is an example of an htacess that will use the uploads folder from a remote site 
+
+```
+# BEGIN Reverse proxy
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^wp-content\/uploads\/(.*)$ https:\/\/remote.site.domain\/wp-content\/$1 [R=302,L,NC]
+# END Reverse proxy
+
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
+```
+
+I've started building more into a [2024 fork here](https://github.com/hadamlenz/twentytwentyfour-env).

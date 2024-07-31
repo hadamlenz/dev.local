@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "../wordpress-docker-image"
+		},
+		{
+			"path": "../twentytwentyfour-env"
 		}
 	],
 	"settings": {}
