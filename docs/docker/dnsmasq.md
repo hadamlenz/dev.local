@@ -1,7 +1,5 @@
 # Never touch your local /etc/hosts file in OS X again
 
-> To setup your computer to work with *.test domains, e.g. project.test, awesome.test and so on, without having to add to your hosts file each time.
-
 ## Requirements
 
 * [Homebrew](https://brew.sh/)
@@ -12,22 +10,20 @@
 brew install dnsmasq
 ```
 
-## Setup
-
-### Create config directory
-```
-mkdir -pv $(brew --prefix)/etc/
-```
-
 ### Setup *.test
 
-```
-echo 'address=/.test/127.0.0.1' >> $(brew --prefix)/etc/dnsmasq.conf
-```
-### Change port for High Sierra
-```
-echo 'port=53' >> $(brew --prefix)/etc/dnsmasq.conf
-```
+nano $(brew --prefix)/etc/dnsmasq.conf
+or 
+code $(brew --prefix)/etc/dnsmasq.conf
+or
+code-insiders $(brew --prefix)/etc/dnsmasq.conf
+
+
+port=53
+domain-needed
+bogus-priv
+address=/.test/10.200.10.1
+cache-size=10000
 
 ## Autostart - now and after reboot
 ```
@@ -43,11 +39,24 @@ sudo mkdir -v /etc/resolver
 
 ### Add your nameserver to resolvers
 ```
-sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolver/test'
+sudo bash -c 'echo nameserver 10.254.254.254 > /etc/resolver/test'
 ```
 
-## Finished
 
-That's it! You can run scutil --dns to show all of your current resolvers, and you should see that all requests for a domain ending in .test will go to the DNS server at 127.0.0.1
+That's it! You can run scutil --dns to show all of your current resolvers, and you should see that all requests for a domain ending in .test will go to the DNS server at 10.254.254.254
 
-## N.B. never use .dev as a TLD for local dev work. .test is fine though.
+Add all this to .bash_profile.  
+
+```bash
+alias dns-start="sudo brew services start dnsmasq"
+alias dns-stop="sudo brew services stop dnsmasq"
+alias dns-restart="brew services restart dnsmasq"
+alias setup-local-ip="sudo ifconfig lo0 alias 10.254.254.254"
+alias make-test-resolver="sudo bash -c 'echo nameserver 10.254.254.254 > /etc/resolver/test'"
+alias remove-test-resolver="sudo rm /etc/resolver/test"
+```
+
+When you restart you will have to run
+`dns-stop && setup-local-ip && dns-start`
+
+ifconfig lo0

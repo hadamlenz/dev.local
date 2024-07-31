@@ -1,4 +1,6 @@
-# Import a pantheon site into local by flywheen
+# Import a pantheon site into local by flywheel
+
+0. if you have wp-migrate-db working you can export the site and esily [import it to flywheel](https://localwp.com/help-docs/getting-started/how-to-import-a-wordpress-site-into-local/)
 
 1. Make a site in flywheel
 Start a new site with nginx using the php version you are using on the site (7 or 8)
@@ -33,7 +35,9 @@ restart the site in LocalByFlywheel
 3. download the db from a multisite on pantheon
 `terminus wp [SITE].[ENV] -- db export - --tables=$(terminus wp [SITE].[ENV] -- db tables '[PREFIX]_*' --url=[SITEURL] --format=csv) > database.sql`
 
-You can change that as needed for each host. If your host requires you to SSH to run wp-cli you can just run 
+You can change that as needed for each host on Pantheon
+
+If your host requires you to SSH to run wp-cli you can just run 
 `wp db export - > database.sql`
 
 you might want to do that in a folder other than root

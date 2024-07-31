@@ -10,4 +10,4 @@ If you just want to get the logs that have `[php` in them you can grep
 npm run wp-env logs --watch | grep -E '\[php'
 ```
 
-Im sure there is a better way of doing this
+Im sure there is a better way of doing this besides grep, but this does work
