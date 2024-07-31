@@ -1,26 +1,7 @@
-# local development with WordPress and full site editing
-
-This repo is the code materials for a workshop given at WPCampus 2024 at Georgetown University 
-
-## Local by Flywheel
-
-In many cases, local by flywheel is enough
-
-```json
-"settings": {
-    "logViewer.watch": [
-        {
-            "title": "local php error logs",
-            "pattern":"${workspaceFolder}/logs/php/error.log"
-
-        }
-    ]
-}
-```
-
 ## @wordpress\env
 
 can be defined with a file named .wp-env.json in the root
+
 
 ```json
 {
@@ -41,6 +22,3 @@ can be defined with a file named .wp-env.json in the root
 		}
 	}
 }
-```
-
-

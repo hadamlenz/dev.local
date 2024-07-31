@@ -4,10 +4,13 @@
 			"path": "."
 		},
 		{
-			"path": "../docker.localhost"
+			"path": "../localhub"
 		},
 		{
-			"path": "../sites.test/html/web/wp-content/themes/unc-wilson"
+			"path": "../wordpress-and-nginx-for-docker"
+		},
+		{
+			"path": "../wordpress-docker-image"
 		}
 	],
 	"settings": {}
