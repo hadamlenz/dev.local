@@ -55,3 +55,12 @@ lets get whoami working on .test using [dnsmasq](dnsmasq.md).  this is untested 
 6. you can run the docker-compose.json in wordpress-and-nginx-for-docker
 
 Still with me???
+
+
+## Some common pitfalls 
+Im sure you will get issues with this.  
+
+### Wrong image for the system,
+Most of the time you are going to pick either arm or amd64.  Sometimes this is important and a container will just not run on your host system, sometimes it's fine.
+
+make an issue on this repo and we can add more common issues!!
