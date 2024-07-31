@@ -40,7 +40,7 @@ follow the directions, the FQDN is the url of the site
 
 ## Do you want to add test?
 if you want to use the .localhost tld you will be always using chrome.  it's the only place where it works.  to use the .test tld you can do a couple things.
-lets get whoami working on .test.  this is untested on Windows and WSL
+lets get whoami working on .test using [dnsmasq](dnsmasq.md).  this is untested on Windows and WSL
 
 1. in the localhub find the line ```"traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"``` and change whoami.localhost to whoami.test
 2. in the assets folder run `./make_cert -u whoami.test` and add to `localhub/traefil/conf/traefik.toml`
@@ -49,3 +49,9 @@ lets get whoami working on .test.  this is untested on Windows and WSL
 ## Get WordPress setup
 1. Go to [phpmyadmin.localhost](https://phpmyadmin.localhost), you can log in with username: root and password: root
 2. Create a database for your new Wordpress setup 
+3. in wordpress-docker-image run `docker-compose build` to build the WordPress image.  this is a pretty simple Wordpress image with some built in extra stuff like Redis and wp-cli, ldap support and composer.  
+4. After the image is built go into 
+5. find the line like `"traefik.http.routers.sites_nginx.rule=Host`  and add the url you want to use for this site.  remeber to use the tld you picked in the section above
+6. you can run the docker-compose.json in wordpress-and-nginx-for-docker
+
+Still with me???

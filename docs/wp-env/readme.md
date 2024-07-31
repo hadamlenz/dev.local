@@ -1,6 +1,8 @@
 ## @wordpress\env
 
-can be defined with a file named .wp-env.json in the root
+can be defined with a file named .wp-env.json in the root, this is an example of the one we use.  For this to work you will need your theme in the themes folder, and have some plugins in the plugins folder.  Those are what I've mapped in the plugins attribute below
+
+The env attribute sets custom ports, this allows me to run more that one env at a time
 
 
 ```json
