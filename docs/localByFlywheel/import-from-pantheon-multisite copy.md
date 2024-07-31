@@ -32,8 +32,8 @@ include uploads-proxy.conf;
 change the variables in to match the remote site url.  This should point to the uploads folder of the remote site and allows you to not have to download all the of the files.  If you are not using multisite on the remote, you can delete `[MAYBEMULTISITEPATH]`
 restart the site in LocalByFlywheel
 
-3. download the db from pantheon
-`terminus wp [SITE].[ENV] -- db export - > database.sql`
+3. download the db from a multisite on pantheon
+`terminus wp [SITE].[ENV] -- db export - --tables=$(terminus wp [SITE].[ENV] -- db tables '[PREFIX]_*' --url=[SITEURL] --format=csv) > database.sql`
 
 You can change that as needed for each host on Pantheon
 
@@ -52,7 +52,7 @@ and then download it with
 `wp db query < change-table-prefix.sql`
 
 6. delete unused tables
-in adminer select sql command `DROP TABLE IF EXISTS wp_commentmeta,wp_comments,wp_links,wp_options,wp_postmeta,wp_posts,wp_term_relationships,wp_term_taxonomy,wp_termmeta,wp_terms,wp_users,wp_usermeta`
+in adminer select sql command `DROP TABLE IF EXISTS wp_commentmeta,wp_comments,wp_links,wp_options,wp_postmeta,wp_posts,wp_term_relationships,wp_term_taxonomy,wp_termmeta,wp_terms`
 
 7. change the table prefix
 in adminer select sql command `CALL change_wp_tables_prefix("local","[OLDPREFIX]_","wp_")`
@@ -63,6 +63,6 @@ in adminer select sql command `CALL change_wp_tables_prefix("local","[OLDPREFIX]
 9. Change the urls
 `wp search-replace [SITEURL] [NEWLOCALSITEURL] --report-changed-only`
 
-10.  change the siteurl and home 
+10. change the siteurl and home 
 `wp option update siteurl [SCHEME][[NEWLOCALSITEURL] && wp option update home [SCHEME][[NEWLOCALSITEURL]`
 
