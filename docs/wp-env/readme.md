@@ -51,4 +51,4 @@ RewriteRule . /index.php [L]
 # END WordPress
 ```
 
-I've started building more into a [2024 fork here](https://github.com/hadamlenz/twentytwentyfour-env).
+I've started building more into a [2024 fork here](https://github.com/hadamlenz/twentytwentyfour-env).  Please check it out
