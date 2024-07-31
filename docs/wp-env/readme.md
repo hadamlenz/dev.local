@@ -27,7 +27,7 @@ The env attribute sets custom ports, this allows me to run more that one wp-env 
 		}
 	}
 }
-
+```
 
 Here is an example of an htacess that will use the uploads folder from a remote site 
 
@@ -35,7 +35,7 @@ Here is an example of an htacess that will use the uploads folder from a remote 
 # BEGIN Reverse proxy
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^wp-content\/uploads\/(.*)$ https:\/\/remote.site.domain\/wp-content\/$1 [R=302,L,NC]
+RewriteRule ^wp-content\/uploads\/(.*)$ https:\/\/remote.site.domain\/wp-content\/uploads\/$1 [R=302,L,NC]
 # END Reverse proxy
 
 
@@ -50,5 +50,5 @@ RewriteRule . /index.php [L]
 </IfModule>
 # END WordPress
 ```
-
+   
 I've started building more into a [2024 fork here](https://github.com/hadamlenz/twentytwentyfour-env).  Please check it out
